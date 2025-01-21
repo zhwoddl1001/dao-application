@@ -16,7 +16,7 @@ public class KHTProductService {
     public List<KHTProduct> findAll() {
     return khtProductRepository.findAll();}
 
-    public KHTProduct save(KHTProduct khtProduct) {
+    public KHTProduct save(KHTProduct khtProduct) { // 저장할거를 () 안에 씀
         return khtProductRepository.save(khtProduct);
     }
 
