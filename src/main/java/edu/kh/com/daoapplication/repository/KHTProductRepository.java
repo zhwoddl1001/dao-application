@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface KHTProductRepository extends JpaRepository<KHTProduct, Long> {
     KHTProduct findByName(String name);
+
+    KHTProduct findById(int id);
 }

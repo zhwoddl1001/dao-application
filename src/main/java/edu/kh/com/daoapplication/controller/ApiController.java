@@ -51,5 +51,31 @@ public class ApiController {
         //  return khtProductService.save(product);
     }
 
-
+    /**
+     * 
+     *  @RequestParam 으로 전달받은 값을 
+     * URLSearchParams = URL 주소에서 parameters(파라미터들)을 search 검색해서
+     * urlParams 라는 변수 이름에 ? 뒤에 오는 키=값 을 모두 담아둠
+     * urlParams 에서 원하는 키의 값을 GET 해서 가져옴
+     * id 라는 변수 이름에 키에 해당하는 값을 저장
+     *           
+     *   const urlParams = new URLSearchParams(window.location.search);
+     *   const id = urlParams.get('id');
+     * @param id 는 get('id') 로 가져온 값을 활용해서 ajax로 DB에 id값에 해당하는 데이터를 가져오기
+     * @return
+     */ // 아이디로 상세보기
+    @GetMapping("/user/{id}")
+    public KHTUser findById(@PathVariable("id") int id) {
+        KHTUser khtUser = khtUserService.findById(id);
+        log.info(khtUser.toString());
+        return khtUser; // 가져온 데이터가 있든 없든 html에 전달
+    }
+    
+    // 아이디로 제품 상세보기
+    @GetMapping("/products/{id}")
+    public KHTProduct findByID(@PathVariable("id") int id) {
+        KHTProduct khtProduct = khtProductService.findById(id);
+        log.info(khtProduct.toString());
+        return khtProduct;
+    }
 }
