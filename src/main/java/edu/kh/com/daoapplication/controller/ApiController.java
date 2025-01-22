@@ -1,7 +1,9 @@
 package edu.kh.com.daoapplication.controller;
 
-import edu.kh.com.daoapplication.dao.KHTProduct;
-import edu.kh.com.daoapplication.dao.KHTUser;
+import edu.kh.com.daoapplication.entity.KHTBook;
+import edu.kh.com.daoapplication.entity.KHTProduct;
+import edu.kh.com.daoapplication.entity.KHTUser;
+import edu.kh.com.daoapplication.service.KHTBookService;
 import edu.kh.com.daoapplication.service.KHTProductService;
 import edu.kh.com.daoapplication.service.KHTUserService;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +22,9 @@ public class ApiController {
     private KHTUserService khtUserService;
     @Autowired
     private KHTProductService khtProductService;
+
+    @Autowired
+    private KHTBookService khtBookService;
     
     // ajax url 을 이용해서 DB에 저장된 DB 불러오기
     @GetMapping("/users")
@@ -77,5 +82,27 @@ public class ApiController {
         KHTProduct khtProduct = khtProductService.findById(id);
         log.info(khtProduct.toString());
         return khtProduct;
+    }
+
+     @GetMapping("/books")
+    public List<KHTBook> findAllBooks() {
+        List<KHTBook> books = khtBookService.findAll();
+        log.info(books.toString());
+        return books;
+     }
+
+    @GetMapping("/book/{id}")
+    public KHTBook findByBookId(@PathVariable("id")int id){
+        KHTBook khtBook = khtBookService.findById(id);
+        log.info(khtBook.toString());
+        return khtBook;
+    }
+    // 405 (Method Not Allowed) GET 으로는 DB 저장 X
+    // Request method 'POST'
+    @PostMapping("/bookSave")
+    public KHTBook saveBook(@RequestBody KHTBook book) {
+        KHTBook savedBook = khtBookService.save(book);
+        log.info(savedBook.toString());
+        return savedBook;
     }
 }

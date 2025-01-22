@@ -1,6 +1,6 @@
 package edu.kh.com.daoapplication.repository;
 
-import edu.kh.com.daoapplication.dao.KHTUser;
+import edu.kh.com.daoapplication.entity.KHTUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,6 +15,9 @@ import org.springframework.stereotype.Repository;
 *     전체 조회   = findAll
 * */
 
+// DAO - Repository
+// DAO -> 축소해서 작성한 것이 Repository
+// DAO -> 축소해서 작성한 것이 Mapper
 @Repository
 public interface KHTUserRepository extends JpaRepository<KHTUser, Long> {
     // mapper 로 작성했을 때 mybatis 에서 작성한 id 명칭으로 쿼리(sql)을 불러왔다면

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>책 추가</title>
+    <link rel="icon" href="/favicon.ico">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+<h1>책 등록</h1>
+<form id="bookForm">
+    <label for="title">책 이름 : </label>
+    <input type="text" id="title" name="title">
+
+    <label for="author">작가 : </label>
+    <input type="text" id="author" name="author">
+
+    <label for="genre">장르: </label>
+    <input type="text" id="genre" name="genre">
+
+
+    <button type="button" id="saveBookButton">책 저장</button>
+</form>
+<script>
+    $('#saveBookButton').click(function (e) {
+        e.preventDefault();
+
+        const title = $('#title').val();
+        const author = $('#author').val();
+        const genre = $('#genre').val();
+
+        if (!title || !author || !genre) {
+            alert("모든 필드를 입력해주세요.");
+            return; //작성안하면 제출 못하게 방지
+        }
+        $.ajax({
+            url: '/api/bookSave',
+            method: 'POST',
+            contentType: "application/json",
+            data: JSON.stringify({
+                title: title,
+                author: author,
+                genre: genre
+            }),
+            success:
+                function () {
+                    alert("성공적으로 제품을 등록하였습니다.")
+                    getProductList(); // 제품 등록 되었을 때 제품 모두 보기 기능 사용
+                    $('#title').val('');
+                    $('#author').val('');
+                    $('#genre').val('');
+                    window.location.href = "/books";
+
+                },
+            error:
+                function () {
+                    alert("제품 등록에 실패했습니다.");
+                }
+        })
+    })
+</script>
+</body>
+</html>

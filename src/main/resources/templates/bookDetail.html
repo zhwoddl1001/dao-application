@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>책 상세설명</title>
+    <link rel="icon" href="/favicon.ico">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+<h1>책 상세 조회</h1>
+<div id="bookDetails">
+    <p>책을 불러오는 중입니다...</p>
+</div>
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id');
+    $.ajax({
+        url: `/api/book/${id}`,
+        method: 'GET',
+        success: function (book) {
+            if (book) {
+                $('#bookDetails').html(
+                    `
+                        <h2>제품 상세 정보</h2>
+                            <p><strong>책 ID:</strong>${book.id}</p>
+                            <p><strong>책 이름:</strong>${book.title}</p>
+                            <p><strong>작가:</strong> ${book.author} </p>
+                            <p><strong>장르:</strong>${book.genre}</p>
+                                                            `
+                );
+            }else {
+                $('#bookDetails').html('<p>조회되지 않는 책입니다.</p>')
+            }
+        },
+        error: function () {
+            $('#bookDetails').html('<p>백엔드에서 데이터를 가져올수 없습니다.</p>');
+        }
+    })
+</script>
+</body>
+</html>

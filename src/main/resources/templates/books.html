@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>책 조회</title>
+    <link rel="icon" href="/favicon.ico">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+    <h1>책 조회</h1>
+    <ul id="bookList"></ul>
+<script>
+    function getBookList() {
+        $.ajax({
+            url: "api/books",
+            method: 'GET',
+            success:
+                function (data) {
+                    $('#bookList').empty();
+                    $.each(data, function (index, item) {
+                        $('#bookList').append(
+                            `
+                            <li><a href="/book?id=${item.id}">${item.title}</a></li>
+                                                `)
+                    })
+                },
+            error:
+                function () {
+                    alert("서버로부터 데이터를 가져올 수 없습니다.")
+                }
+        })
+    }
+    getBookList();
+</script>
+
+</body>
+</html>
