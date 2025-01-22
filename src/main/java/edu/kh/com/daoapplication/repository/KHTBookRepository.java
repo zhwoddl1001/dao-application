@@ -6,7 +6,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface KHTBookRepository extends JpaRepository<KHTBook, Long> {
-    KHTBook findByTitle(String title);
-
+    // save
+    // findAll
+    //-> 기존에 JPA에서 만들었던 save 메서드를 변형해서 재설정
+    // KHTBook save(String title, String author, String genre, String imagePath);
     KHTBook findById(int id);
 }

@@ -20,4 +20,7 @@ public class KHTUser {
     // unique = false -> 똑같은 값을 허용할것인가? 허용함
     @Column(unique = false, nullable = false)
     private String password;
+
+    // 이미지 경로 설정
+    private String imagePath;
 }

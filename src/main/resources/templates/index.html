@@ -114,6 +114,10 @@
     <label for="password">비밀 번호 : </label>
     <input type="password" id="password" name="password">
     <button>등록</button> <!-- 버튼 기본값 submit-->
+
+    <label for="imagePath">프로필 사진</label>
+    <input id="imagePath" required type="file">
+    <button id="saveBook" type="button">저장하기</button>
 </form>
 <script>
     $('#userForm').submit(function (e) {
@@ -122,7 +126,10 @@
         const usernameRegex = /^[a-zA-Z0-9]{5,15}$/;
         const passwordRegex = /^(?=.[A-Za-z])(?=.\\d)[A-Za-z\\d]{8,}$/;
         e.preventDefault();
-
+        let formData = new FormData();
+        formData.append("username",username);
+        formData.append("password",password);
+        formData.append('file',$('#imagePath')[0].files[0]);
         // 빈칸인지 빈칸이 아닌지 체크를 하고 전달
         /*
         if (!username){
@@ -147,13 +154,11 @@
         // 동일한 아이디가 존재하는지
 
         $.ajax({
-            url: "/api/saveUser",
+            url: "/api/saveUserImage",
            method:"POST",
-           contentType:"application/json",
-            data:JSON.stringify({
-                username: username,
-                password: password
-            }),
+            processData: false, //FormData 를 전송할 때 필요
+            contentType: false,//FormData 를 전송할 때 필요
+            data:formData,
             success:
             function (){
                 alert("유저가 성공적으로 등록되었습니다.");
